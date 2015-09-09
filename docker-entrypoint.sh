@@ -1,8 +1,10 @@
 #!/bin/bash
 set -e
 
+mkdir -p $RABBITMQ_HOME
+
 if [ "$RABBITMQ_ERLANG_COOKIE" ]; then
-	cookieFile='/var/lib/rabbitmq/.erlang.cookie'
+	cookieFile="$RABBITMQ_HOME/.erlang.cookie"
 	if [ -e "$cookieFile" ]; then
 		if [ "$(cat "$cookieFile" 2>/dev/null)" != "$RABBITMQ_ERLANG_COOKIE" ]; then
 			echo >&2
@@ -56,7 +58,7 @@ if [ "$1" = 'rabbitmq-server' ]; then
 		EOF
 	fi
 
-	chown -R rabbitmq /var/lib/rabbitmq
+	chown -R rabbitmq $RABBITMQ_HOME
 	set -- gosu rabbitmq tini -- "$@"
 fi
 
