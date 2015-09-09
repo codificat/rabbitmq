@@ -58,7 +58,7 @@ if [ "$1" = 'rabbitmq-server' ]; then
 		EOF
 	fi
 
-	chown -R rabbitmq $RABBITMQ_HOME
+	#chown -R rabbitmq $RABBITMQ_HOME
 	set -- gosu rabbitmq tini -- "$@"
 fi
 
